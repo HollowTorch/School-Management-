@@ -1,0 +1,8 @@
+package com.schoolmanagement.common;
+import jakarta.persistence.*; import lombok.Getter; import lombok.Setter; import java.time.Instant;
+@MappedSuperclass @Getter @Setter
+public abstract class BaseEntity {
+ @Id @GeneratedValue(strategy=GenerationType.IDENTITY) private Long id;
+ @Column(name="created_at", updatable=false) private Instant createdAt;
+ @PrePersist void onCreate(){ if(createdAt==null) createdAt=Instant.now(); }
+}

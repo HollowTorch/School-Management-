@@ -1,0 +1,4 @@
+package com.schoolmanagement.attendance;
+import com.schoolmanagement.common.BaseEntity; import com.schoolmanagement.school.School; import com.schoolmanagement.student.Student; import com.schoolmanagement.user.AppUser; import jakarta.persistence.*; import lombok.Getter; import lombok.Setter; import java.time.Instant;
+@Entity @Table(name="attendance_events") @Getter @Setter
+public class AttendanceEvent extends BaseEntity { @ManyToOne(optional=false) @JoinColumn(name="school_id") private School school; @ManyToOne(optional=false) @JoinColumn(name="student_id") private Student student; @Enumerated(EnumType.STRING) @Column(name="event_type",nullable=false) private EventType eventType; @Column(name="event_time",nullable=false) private Instant eventTime=Instant.now(); @ManyToOne(optional=false) @JoinColumn(name="actor_user_id") private AppUser actor; @Column(name="idempotency_key") private String idempotencyKey; }
